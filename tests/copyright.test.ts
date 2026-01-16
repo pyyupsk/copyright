@@ -1,3 +1,6 @@
+/**
+ * @vitest-environment jsdom
+ */
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { Copyright } from "../src/copyright";
 
@@ -167,6 +170,113 @@ describe("Copyright", () => {
       });
       expect(html).toBe(
         '<footer class="footer-text" style="color: gray; font-size: 12px">\u00A9 2026 John Doe</footer>',
+      );
+    });
+  });
+
+  describe("render with selector", () => {
+    let container: HTMLDivElement;
+
+    beforeEach(() => {
+      container = document.createElement("div");
+      container.id = "test-container";
+      document.body.appendChild(container);
+    });
+
+    afterEach(() => {
+      while (document.body.firstChild) {
+        document.body.firstChild.remove();
+      }
+    });
+
+    it("should render to element found by selector", () => {
+      const copyright = new Copyright({ owner: "John Doe" });
+      const el = copyright.render("#test-container");
+
+      expect(el.tagName.toLowerCase()).toBe("span");
+      expect(el.textContent).toBe("\u00A9 2026 John Doe");
+      expect(container.contains(el)).toBe(true);
+    });
+
+    it("should use custom tag when provided", () => {
+      const copyright = new Copyright({ owner: "John Doe" });
+      const el = copyright.render("#test-container", { tag: "footer" });
+
+      expect(el.tagName.toLowerCase()).toBe("footer");
+    });
+
+    it("should apply className when provided", () => {
+      const copyright = new Copyright({ owner: "John Doe" });
+      const el = copyright.render("#test-container", {
+        className: "copyright-text",
+      });
+
+      expect(el.className).toBe("copyright-text");
+    });
+
+    it("should apply style when provided", () => {
+      const copyright = new Copyright({ owner: "John Doe" });
+      const el = copyright.render("#test-container", {
+        style: { color: "gray", fontSize: "14px" },
+      }) as HTMLElement;
+
+      expect(el.style.color).toBe("gray");
+      expect(el.style.fontSize).toBe("14px");
+    });
+  });
+
+  describe("render with Element reference", () => {
+    let container: HTMLDivElement;
+
+    beforeEach(() => {
+      container = document.createElement("div");
+      container.id = "test-container";
+      document.body.appendChild(container);
+    });
+
+    afterEach(() => {
+      while (document.body.firstChild) {
+        document.body.firstChild.remove();
+      }
+    });
+
+    it("should render to provided Element", () => {
+      const copyright = new Copyright({ owner: "John Doe" });
+      const el = copyright.render(container);
+
+      expect(el.tagName.toLowerCase()).toBe("span");
+      expect(el.textContent).toBe("\u00A9 2026 John Doe");
+      expect(container.contains(el)).toBe(true);
+    });
+
+    it("should apply all render options", () => {
+      const copyright = new Copyright({ owner: "John Doe" });
+      const el = copyright.render(container, {
+        tag: "small",
+        className: "text-muted",
+        style: { fontSize: "12px" },
+      }) as HTMLElement;
+
+      expect(el.tagName.toLowerCase()).toBe("small");
+      expect(el.className).toBe("text-muted");
+      expect(el.style.fontSize).toBe("12px");
+    });
+  });
+
+  describe("render error handling", () => {
+    it("should throw error when selector not found", () => {
+      const copyright = new Copyright({ owner: "John Doe" });
+
+      expect(() => copyright.render("#non-existent")).toThrow(
+        "Target element not found: #non-existent",
+      );
+    });
+
+    it("should throw error with descriptive selector in message", () => {
+      const copyright = new Copyright({ owner: "John Doe" });
+
+      expect(() => copyright.render(".missing-class")).toThrow(
+        "Target element not found: .missing-class",
       );
     });
   });

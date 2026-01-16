@@ -7,7 +7,12 @@ import tseslint from "typescript-eslint";
 
 export default defineConfig([
   {
-    ignores: ["**/.vitepress/cache/**", "**/.vitepress/dist/**", "**/.docs/**"],
+    ignores: [
+      "**/.vitepress/cache/**",
+      "**/.vitepress/dist/**",
+      "**/.docs/**",
+      "**/dist/**",
+    ],
   },
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
@@ -55,6 +60,15 @@ export default defineConfig([
       "sonarjs/no-extra-arguments": "error",
       "sonarjs/no-use-of-empty-return-value": "error",
       "sonarjs/non-existent-operator": "error",
+    },
+  },
+  {
+    // Relax rules for test files
+    files: ["tests/**/*.ts", "tests/**/*.tsx"],
+    rules: {
+      "sonarjs/max-lines-per-function": "off",
+      "sonarjs/no-duplicate-string": "off",
+      "sonarjs/no-nested-functions": "off",
     },
   },
   {
