@@ -1,6 +1,6 @@
 {
   "name": "@pyyupsk/copyright",
-  "version": "0.1.2",
+  "version": "0.0.0",
   "description": "A framework-agnostic TypeScript library for displaying copyright notices with auto year calculation, preset formats, custom templates, and React support",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -54,10 +54,7 @@
     "format": "biome format --write .",
     "typecheck": "tsc --noEmit",
     "knip": "knip",
-    "prepare": "lefthook install",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "prepare": "lefthook install"
   },
   "engines": {
     "node": ">=20"
@@ -107,7 +104,6 @@
     "tsdown": "^0.20.0-beta.3",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.53.0",
-    "vitepress": "^1.6.4",
     "vitest": "^4.0.17"
   },
   "overrides": {
