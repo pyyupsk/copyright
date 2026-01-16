@@ -1,7 +1,7 @@
 {
   "name": "@pyyupsk/copyright",
   "version": "0.1.2",
-  "description": "A TypeScript library template with modern tooling",
+  "description": "A framework-agnostic TypeScript library for displaying copyright notices with auto year calculation, preset formats, custom templates, and React support",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -16,6 +16,24 @@
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react.d.mts",
+        "default": "./dist/react.mjs"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
+    }
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
     }
   },
   "files": [
@@ -45,14 +63,13 @@
     "node": ">=20"
   },
   "keywords": [
+    "copyright",
+    "copyright-notice",
+    "year-range",
+    "legal",
+    "footer",
     "typescript",
-    "template",
-    "npm",
-    "library",
-    "bun",
-    "biome",
-    "vitest",
-    "changesets",
+    "react",
     "esm",
     "cjs"
   ],
@@ -68,20 +85,25 @@
   "homepage": "https://github.com/pyyupsk/copyright#readme",
   "devDependencies": {
     "@biomejs/biome": "^2.3.11",
-    "@tsconfig/strictest": "^2.0.8",
     "@commitlint/cli": "^20.3.1",
     "@commitlint/config-conventional": "^20.3.1",
     "@commitlint/types": "^20.3.1",
     "@eslint/js": "^9.39.2",
+    "@testing-library/react": "^16.3.1",
+    "@tsconfig/strictest": "^2.0.8",
+    "@types/react": "^19.2.8",
+    "@types/react-dom": "^19.2.3",
     "@vitest/coverage-v8": "^4.0.17",
     "eslint": "^9.39.2",
     "eslint-plugin-jsdoc": "^62.0.0",
     "eslint-plugin-sonarjs": "^3.0.5",
     "globals": "^17.0.0",
     "jiti": "^2.6.1",
+    "jsdom": "^27.4.0",
     "knip": "^5.81.0",
     "lefthook": "^2.0.15",
     "markdownlint-cli2": "^0.20.0",
+    "react-dom": "^19.2.3",
     "tsdown": "^0.20.0-beta.3",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.53.0",

@@ -4,9 +4,8 @@
   "compilerOptions": {
     // Target environment
     "target": "ES2022",
-    "lib": ["ES2022"],
-    // "lib": ["ES2022", "DOM", "DOM.Iterable"], // Uncomment for Browser
-    // "jsx": "react-jsx",                       // Uncomment for React
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
 
     // Module system (works with tsdown bundler)
     "module": "ESNext",
