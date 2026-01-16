@@ -95,6 +95,42 @@ describe("Copyright", () => {
     });
   });
 
+  describe("custom template", () => {
+    it("should use custom template when provided", () => {
+      const copyright = new Copyright({
+        owner: "ACME Corp",
+        template: "All content {symbol} {year} by {owner}",
+      });
+      expect(copyright.getText()).toBe("All content \u00A9 2026 by ACME Corp");
+    });
+
+    it("should use custom template with year range", () => {
+      const copyright = new Copyright({
+        owner: "ACME Corp",
+        startYear: 2020,
+        template: "{symbol} {startYear}-{endYear} {owner}",
+      });
+      expect(copyright.getText()).toBe("\u00A9 2020-2026 ACME Corp");
+    });
+
+    it("should override format when template is provided", () => {
+      const copyright = new Copyright({
+        owner: "ACME Corp",
+        format: "legal",
+        template: "Custom: {owner} ({year})",
+      });
+      expect(copyright.getText()).toBe("Custom: ACME Corp (2026)");
+    });
+
+    it("should leave unknown variables as-is", () => {
+      const copyright = new Copyright({
+        owner: "ACME Corp",
+        template: "{symbol} {year} {owner} - {unknown}",
+      });
+      expect(copyright.getText()).toBe("\u00A9 2026 ACME Corp - {unknown}");
+    });
+  });
+
   describe("toHTML", () => {
     it("should return HTML with default span tag", () => {
       const copyright = new Copyright({ owner: "John Doe" });
