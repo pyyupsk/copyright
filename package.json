@@ -1,6 +1,6 @@
 {
   "name": "@pyyupsk/copyright",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A framework-agnostic TypeScript library for displaying copyright notices with auto year calculation, preset formats, custom templates, and React support",
   "type": "module",
   "main": "./dist/index.cjs",
